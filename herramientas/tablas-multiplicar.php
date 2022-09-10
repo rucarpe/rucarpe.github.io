@@ -1,5 +1,20 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Tablas de multiplicar</title>
+</head>
+<body>
+    <form action="">
+        <label for="GET-numero">Número:</label>
+        <input id="GET-numero" type="number" name="numero">
+        <input type="submit" value="Ver tabla">
+    </form>
+</body>
+</html>
 <?php
-
 function tablasMultiplicar ($numero) {
 	echo "<h3>Tabla de multiplicar del $numero</h3>";
 	
@@ -15,5 +30,9 @@ if (isset($_GET['numero'])){
 }else {
     echo "<h3>Especifica el número de la tabla que quieres mostrar.</h3>";
 }
-
 ?>
+
+<ul>
+<li><a class="button" href="../../">Inicio</a></li>
+<li><a class="button" href="../">Herramientas</a></li>
+</ul>
