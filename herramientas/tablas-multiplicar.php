@@ -29,7 +29,13 @@ if (isset($_GET['numero'])){
     tablasMultiplicar($_GET['numero']);
 }else {
     echo "<h3>Especifica el número de la tabla que quieres mostrar.</h3>";
-}
+}?>
+<br><hr><br>
+<h2>Todas las tablas</h2>
+<?php
+    for($multiplicador=0;$multiplicador<=10;$multiplicador++) {
+        tablasMultiplicar($multiplicador);
+    }
 ?>
 
 <ul>
