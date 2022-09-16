@@ -8,11 +8,7 @@
 </head>
 <body>
     <h1>Herramientas</h1>
-    <nav class="main-nav">
-        <ul>
-            <li> <a href="tablas-multiplicar.php/">Tablas de multiplicar</a></li>
-            <li> <a href="calculadora.php/">Calculadora</a></li>
-        </ul>
-    </nav>
+    <!-- Menú de navegación principal -->
+    <?php require_once 'navegacion.php'; ?>
 </body>
 </html>
