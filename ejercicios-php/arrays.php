@@ -83,14 +83,35 @@ foreach ($agenda as $contacto) {
 
 // Funciones para arrays
 /*
-ORDENAR:
+
+// ORDENAR:
 # asort // Ordenar alfabéticamente. A-Z
 # arsort // Ordenar alfabéticamente invertido. Z-A
 # sort  // Ordenar alfanuméricamente. A-Z y 1-100...
 
-AÑADIR Y SUSTRAER:
+// AÑADIR Y SUSTRAER:
 # $semana[] = "Miércoles"; // Añadir elemento
-# 
-#
+# array_push($semana, "Juernes");
 
+// ELIMINAR:
+array_pop($semana);
+unset($semana[3]);
+
+// ALEATORIO: 
+#$indice es una variable que se crea para recoger, almacenar y mostrar el valor aleatorio.
+$indice = array_rand($semana);
+echo $semana[$indice];
+
+//DAR LA VUELTA: #Ver documentación.
+var_dump(array_reverse($semana));
+
+// BUSCAR DENTRO DE UN ARRAY
+$resultado = array_search('búsqueda', '$semana');
+var_dump($resultado);
+
+// CONTAR NÚMERO DE ELEMENTOS:
+var_dump count($semana);
+var_dump sizeof($semana);
+
+#VER MÁS EN DOCUMENTACIÓN
 */
