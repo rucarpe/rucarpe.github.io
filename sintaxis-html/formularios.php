@@ -10,7 +10,6 @@
     <section class="mainsection">
         <article class="articulo-1">
             <h2>Formularios con HTML</h2>
-
             <form action="" method="get" class="form-example">
                 <div class="form-example">
                     <label for="name">Nombre: </label>
@@ -23,9 +22,8 @@
                 <div class="form-example">
                     <input type="submit" value="Suscríbete">
                 </div>
-                </form>
+            </form>
         </article>
     </section>
-
 </body>
 </html>
