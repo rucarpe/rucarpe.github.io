@@ -26,4 +26,20 @@
         </article>
     </section>
 </body>
+
+<!--
+<form method="POST" action="procesar formulario.php">
+    <label for="nombre">Nombre</label><br>
+    <input type="text" name-"nombre" required-"required" pattern="[A-Za-2]+"><br>
+    <label for="apellidos">Apellidos</label><br>
+    <input type="text" name="apellidos" required-"required" pattern="[A-Za-z]+"><br>
+    <label for="edad">Edad</label><br>
+    <input type="number" name-"edad" required-"required" pattern="[0-9]+"><br>
+    <label for="email">Email</label><br> <input type-"email" name="email" required="required"><br>
+    <label for="pass">Contraseña</label><br>
+    <input type-"password" name="pass" required-"required"><br>
+    <input type="submit" value-"Enviar"/>
+</form>
+-->
+
 </html>
