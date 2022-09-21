@@ -42,6 +42,16 @@ echo sort($loteria8);
     }
 
 
+    echo "<hr><br><br>";
+
+    echo "Cantidad de números del tipo de sorteo: ".sizeof($loteria8);
+    echo "<hr><br><br>";
+
+    echo "<h1>Búsqueda de resultados</h1>";
+    $busqueda = array_search('38', $loteria8);
+    echo $busqueda;
+    echo "<br>";
+    var_dump($busqueda);
 
 
 /*foreach ($loteria8 as $order) {
