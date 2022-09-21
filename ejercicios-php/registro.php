@@ -9,7 +9,7 @@
 <body>
     <h1>Registro</h1>    
     
-    <form action="procesar-registro.php" method="GET">
+    <form action="procesar-registro.php" method="POST">
         <label for="user_name">Nombre de usuario: </label>
         <input type="text" name="user_name" required><br>
         <label for="email">Email:</label>
