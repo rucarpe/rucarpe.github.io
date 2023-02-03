@@ -3,6 +3,9 @@
 - 🌱 I’m currently learning ... All
 - 💞️ I’m looking to collaborate on ...
 - 📫 How to reach me? empresasmurcia@gmail.com
+- ✒️ Posibles fuentes para el proyecto:
+  - "Another Typewriter" -> **Para la web en general**
+  - "Harlow Solid Italic" -> **Para el logotipo**
 
 <!---
 rucarpe/rucarpe is a ✨ special ✨ repository because its `README.md` (this file) appears on your GitHub profile.
