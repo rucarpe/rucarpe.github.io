@@ -1,0 +1,86 @@
+
+/* 
+#main-header
+#site-name
+#site-description
+#main-menu
+#main-content-body
+.firts-section
+.first-article
+#main-content
+#main-sidebar
+#main-footer
+*/
+
+/* Important fuentes Google Fonts */ 
+@import url('https://fonts.googleapis.com/css2?family=Anonymous+Pro:ital,wght@0,400;0,700;1,400;1,700&display=swap');
+
+/* Background de toda la web */
+body { background-color: #FFDD64}
+
+/* Fuente de toda la web */
+* { font-family: 'Anonymous Pro', monospace;}
+
+/* Margen global elementos */
+#main-header, #main-content-body, #main-footer, #main-menu { margin: 50px; }
+
+/* Color de los enlaces */
+/*a { color: #e60000;}*/
+
+/* Enlaces menú principal */
+#main-menu a {
+    text-decoration: none;
+}
+#main-menu a:hover {
+    color: #e60000;
+    text-decoration: none;
+}
+
+/* Site Title */
+#site-name {
+    font-size: 2.0em;
+    font-weight: 700;
+    color: #000000;
+    text-decoration: none;
+}
+
+/* Site Description */
+#site-description {
+    font-size: 1.0em;
+    font-weight: 400;
+    color: #000000;
+    text-decoration: none;
+}
+
+/* Contenedor */
+#first-section {
+    width: 60%;
+    max-width: 1100px;
+    margin: 20px auto;
+    border: 1px solid #000000;
+}
+
+#main-header {
+    border: 1px solid #000000;
+}
+
+#main-menu {
+    border: 1px solid #000000;
+}
+#main-menu ul li{
+    display: inline-block;
+    margin: 0 10px;
+    border: 1px solid #000000;
+    background-color: #f8c409;
+    border-radius: 10px;
+    padding: 10px;
+}
+
+#main-menu ul li:hover {
+    display: inline-block;
+    margin: 0 10px;
+    border: 1px solid #000000;
+    background-color: #f8c409;
+    border-radius: 10px;
+    padding: 13px;
+}
