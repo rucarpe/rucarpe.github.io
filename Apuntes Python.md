@@ -5,7 +5,3 @@
 ### 1.3 Definir variables
 ### 1.4 Prueba
 
-´´´
-Code
-Prueba de código
-´´´
