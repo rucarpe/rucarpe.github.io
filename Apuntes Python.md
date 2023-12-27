@@ -1,7 +1,7 @@
 # Sintaxis Python
 
 * Apuntes Python - Google Colab
-[!] [GoogleColab]https://colab.research.google.com/drive/1FX6YlS98W5Wv6ArlIxsuTeKDqJkzwYym
+[![GoogleColab]https://colab.research.google.com/drive/1FX6YlS98W5Wv6ArlIxsuTeKDqJkzwYym]
 
 
 ## Comentarios
