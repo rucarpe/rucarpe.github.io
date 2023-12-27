@@ -2,7 +2,11 @@
 
 ## Variables
 
-´´´
-nombre = ("Rubén CP")
-´´´
+```Python
+    
+    nombre = ("Rubén CP")
+
+```
+
+
 
