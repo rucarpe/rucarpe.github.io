@@ -2,7 +2,8 @@
 
 * Apuntes Python - Google Colab
 [![Open In Colab](https://img.shields.io/badge/Colab-F9AB00?style=for-the-badge&logo=googlecolab&color=525252)](https://colab.research.google.com/drive/1FX6YlS98W5Wv6ArlIxsuTeKDqJkzwYym)
-
+[![Huggingface](https://img.shields.io/badge/🤗%20-Spaces-yellow.svg?style=for-the-badge)]
+[![Discord](https://img.shields.io/badge/RVC%20Developers-Discord-7289DA?style=for-the-badge&logo=discord&logoColor=white)]
 
 ## Comentarios
 ```Python
