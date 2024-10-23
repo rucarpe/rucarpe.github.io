@@ -267,3 +267,197 @@ El uso de Coral TPU permite que Frigate procese los flujos de video de manera mu
 ---
 
 Este cheatsheet te ayudará a configurar y gestionar Frigate NVR de manera efectiva, desde la detección de objetos hasta la integración con Home Assistant. Puedes personalizar aún más la configuración para adaptarla a tus necesidades de vigilancia y seguridad.
+
+
+### Configuración de MQTT Mosquitto con Frigate NVR
+
+Frigate NVR se integra perfectamente con **MQTT**, lo que permite enviar notificaciones en tiempo real sobre eventos de detección a sistemas de automatización como **Home Assistant**. **Mosquitto** es un broker MQTT muy común que puedes utilizar para gestionar esta comunicación.
+
+A continuación, te muestro cómo configurar **Mosquitto** y vincularlo con **Frigate** para que puedas recibir eventos de detección y trabajar con ellos en Home Assistant u otros sistemas.
+
+---
+
+#### 1. **Instalar Mosquitto en Docker**
+
+Usaremos **Docker** para ejecutar **Mosquitto** fácilmente.
+
+1. Crea un archivo `docker-compose.yml` para Mosquitto:
+
+   ```yaml
+   version: '3'
+   services:
+     mosquitto:
+       image: eclipse-mosquitto:latest
+       container_name: mosquitto
+       ports:
+         - "1883:1883"  # Puerto para MQTT
+         - "9001:9001"  # Puerto para WebSockets (opcional)
+       volumes:
+         - ./mosquitto/config:/mosquitto/config
+         - ./mosquitto/data:/mosquitto/data
+         - ./mosquitto/log:/mosquitto/log
+       restart: unless-stopped
+   ```
+
+2. Crea las carpetas necesarias para la configuración:
+
+   ```bash
+   mkdir -p mosquitto/config mosquitto/data mosquitto/log
+   ```
+
+3. Dentro del directorio `mosquitto/config`, crea el archivo de configuración `mosquitto.conf`:
+
+   ```ini
+   persistence true
+   persistence_location /mosquitto/data/
+   log_dest file /mosquitto/log/mosquitto.log
+   listener 1883
+   allow_anonymous true  # Cambia a false si prefieres requerir autenticación
+   ```
+
+4. Inicia el contenedor Mosquitto:
+
+   ```bash
+   docker-compose up -d
+   ```
+
+   Esto ejecutará **Mosquitto** en el puerto 1883 de tu máquina.
+
+---
+
+#### 2. **Configurar MQTT en Frigate**
+
+Frigate utiliza **MQTT** para publicar eventos de detección. Debemos configurar Frigate para que se conecte a Mosquitto.
+
+1. Abre el archivo `config.yml` de **Frigate** y añade la sección de **MQTT**:
+
+   ```yaml
+   mqtt:
+     host: "localhost"  # O la IP del servidor que ejecuta Mosquitto
+     port: 1883  # Puerto MQTT (normalmente 1883)
+     topic_prefix: frigate  # Prefijo para los temas publicados por Frigate
+     user: "tu_usuario"  # Solo si configuras autenticación en Mosquitto
+     password: "tu_contraseña"  # Solo si configuras autenticación en Mosquitto
+   ```
+
+2. Si decidiste habilitar autenticación en **Mosquitto** (con usuarios y contraseñas), puedes configurar un archivo de contraseñas MQTT en el directorio de configuración de Mosquitto:
+
+   1. Crea el archivo de contraseñas en `mosquitto/config`:
+      ```bash
+      touch mosquitto/config/passwordfile
+      ```
+
+   2. Utiliza el siguiente comando para añadir un usuario y contraseña (necesitas tener `mosquitto_passwd` instalado):
+      ```bash
+      mosquitto_passwd -c mosquitto/config/passwordfile tu_usuario
+      ```
+
+   3. Modifica el archivo `mosquitto.conf` para habilitar la autenticación:
+
+      ```ini
+      allow_anonymous false
+      password_file /mosquitto/config/passwordfile
+      ```
+
+   4. Reinicia **Mosquitto** con Docker para aplicar los cambios:
+
+      ```bash
+      docker-compose restart mosquitto
+      ```
+
+3. Reinicia el contenedor de **Frigate** para que aplique la configuración de MQTT:
+
+   ```bash
+   docker-compose restart frigate
+   ```
+
+---
+
+#### 3. **Configuración de MQTT en Home Assistant**
+
+Home Assistant puede conectarse a **Mosquitto** para recibir eventos de Frigate y ejecutar automatizaciones. Para configurarlo:
+
+1. Ve a **Supervisor** en Home Assistant y busca el complemento **Mosquitto broker** (si prefieres instalarlo directamente en Home Assistant).
+
+2. Si ya tienes **Mosquitto** corriendo en Docker (como en este caso), añade la integración **MQTT** en **Configuración** → **Integraciones** → **Agregar integración** → **MQTT**.
+
+3. Ingresa los detalles de conexión a tu broker **Mosquitto**:
+   - **Host:** `localhost` o la IP de tu servidor Docker.
+   - **Puerto:** `1883`.
+   - **Usuario** y **contraseña** (si habilitaste autenticación en Mosquitto).
+
+---
+
+#### 4. **Temas Publicados por Frigate**
+
+Frigate publicará eventos de detección en temas **MQTT**, que puedes usar en Home Assistant o cualquier sistema que soporte MQTT. Los temas incluyen información sobre los eventos de detección y son útiles para automatizaciones y notificaciones.
+
+- **Ejemplo de un tema MQTT de Frigate:**
+  ```plaintext
+  frigate/front_yard/person
+  ```
+
+- **Estructura del tema:**
+  ```
+  <topic_prefix>/<nombre_cámara>/<tipo_de_objeto>
+  ```
+
+- **Tipos de objetos detectados:** `person`, `car`, `dog`, etc.
+
+---
+
+#### 5. **Automatizaciones en Home Assistant con Frigate**
+
+Una vez configurado **MQTT**, puedes crear automatizaciones basadas en los eventos publicados por Frigate.
+
+**Ejemplo: Enviar una notificación cuando Frigate detecta una persona en el patio frontal:**
+
+```yaml
+automation:
+  - alias: Notificación de persona detectada por Frigate
+    trigger:
+      platform: mqtt
+      topic: "frigate/front_yard/person"
+    action:
+      service: notify.mobile_app_your_device
+      data:
+        message: "Se ha detectado una persona en el patio frontal."
+```
+
+- **Trigger:** Se activa cuando se publica un evento en el tema `frigate/front_yard/person`.
+- **Action:** Envía una notificación al dispositivo móvil registrado.
+
+---
+
+### Resumen de Comandos Rápidos
+
+- **Iniciar Mosquitto con Docker:**
+  ```bash
+  docker-compose up -d
+  ```
+
+- **Reiniciar Mosquitto:**
+  ```bash
+  docker-compose restart mosquitto
+  ```
+
+- **Verificar los logs de Mosquitto:**
+  ```bash
+  docker logs mosquitto
+  ```
+
+- **Iniciar Frigate con Docker:**
+  ```bash
+  docker-compose up -d
+  ```
+
+- **Reiniciar Frigate:**
+  ```bash
+  docker-compose restart frigate
+  ```
+
+---
+
+### Conclusión
+
+Con esta configuración, tendrás **Frigate** publicando eventos de detección en **Mosquitto**, y puedes aprovechar esos eventos en **Home Assistant** para crear automatizaciones, notificaciones y mucho más. Esta integración te brinda una poderosa herramienta para gestionar tu sistema de videovigilancia de manera más inteligente.
